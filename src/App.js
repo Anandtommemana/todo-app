@@ -19,6 +19,14 @@ export default class AppController {
     return project;
   }
 
+  renameProject(projectId, newName) {
+    const project = this.projects.find(p => p.id === projectId);
+    if (project && newName) {
+      project.name = newName;
+      this.save();
+    }
+  }
+
   getActiveProject() {
     return this.projects.find(p => p.id === this.activeProjectId);
   }

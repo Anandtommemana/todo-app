@@ -43,18 +43,45 @@ export default class DOM {
     this.projectListEl.innerHTML = '';
     this.app.projects.forEach(proj => {
       const li = document.createElement('li');
-      li.textContent = proj.name;
       li.className = proj.id === this.app.activeProjectId ? 'active' : '';
+      li.style.display = 'flex';
+      li.style.justifyContent = 'space-between';
+      li.style.alignItems = 'center';
+
+      const nameSpan = document.createElement('span');
+      nameSpan.textContent = proj.name;
+
+      const editBtn = document.createElement('button');
+      editBtn.textContent = '✎';
+      editBtn.style.border = 'none';
+      editBtn.style.background = 'transparent';
+      editBtn.style.cursor = 'pointer';
+
+      editBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const newName = prompt('Rename Project:', proj.name);
+        if (newName) {
+          this.app.renameProject(proj.id, newName);
+          this.render();
+        }
+      });
+
+      li.appendChild(nameSpan);
+      li.appendChild(editBtn);
+
       li.addEventListener('click', () => {
         this.app.setActiveProject(proj.id);
         this.render();
       });
+      
       this.projectListEl.appendChild(li);
     });
   }
 
   renderTodos() {
     const activeProject = this.app.getActiveProject();
+    if (!activeProject) return;
+    
     this.projectTitleEl.textContent = activeProject.name;
     this.todoListEl.innerHTML = '';
 
@@ -136,4 +163,4 @@ export default class DOM {
       this.todoListEl.appendChild(div);
     });
   }
-} // <-- This is the bracket that likely went missing!
+}
