@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>Projects</h2>
+      <ul id="project-list"></ul>
+      <button id="new-project-btn">+ New Project</button>
+    </aside>
+    
+    <main class="main-content">
+      <h2 id="active-project-title">Project Name</h2>
+      
+      <form id="new-todo-form">
+        <input type="text" id="title" placeholder="Task Name" required>
+        <input type="text" id="desc" placeholder="Description">
+        <input type="date" id="date" required>
+        <select id="priority">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+        <button type="submit">Add Task</button>
+      </form>
+
+      <div id="todo-list"></div>
+    </main>
+  </div>
+  <script src="dist/main.js"></script>
+</body>
+</html>
